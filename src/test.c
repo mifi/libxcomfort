@@ -106,7 +106,7 @@ int main(int argc, char ** argv) {
 	// Signal handler
 	sa.sa_handler = shutdown_server;
 	sigemptyset(&sa.sa_mask);
-    if (sigaction(SIGINT, &sa, NULL) == -1) {
+	if (sigaction(SIGINT, &sa, NULL) == -1) {
 		exit(EXIT_FAILURE);
 	}
 
