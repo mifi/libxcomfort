@@ -1,7 +1,16 @@
 libxcomfort
 ===========
 
-Aiming to become an library for controlling Moeller / Eaton XComfort devices through the USB/RS232 dongle.
-Their proprietary protocol has to be understood first. Working RS232 packet for setting a dimmer actuator to a desired level has been implemented.
+libxcomfort is an open source library for controlling Moeller / Eaton's xComfort devices through the CKOZ-00/03 USB dongle. Currently RS232 is not implemented, only the USB protocol.
+It can currently be used for:
+* Getting/setting the dim value.
+* Starting/stopping gradual up/down dimming
+* Turning actuators/dimmers hard on/off.
+* Some other commands like reporting temperatures/measurements have been partially reverse engineered but not implemented
 
-The goal is that it can be used with CKOZ-00/03 and possibly CRSZ-00/01 for controlling actuators from linux/other OS'es.
+The main library code is located under "CKOZ-00_03" and can be used to control the CKOZ/00/03 communication interface. This interface is used for integrating Moeller systems with for instance a computer program.
+Note that the devices to control need to be paired to the comm interface using the _programming_ interface and the MRF program from Moeller.
+
+There also exists some code for controlling devices directly using the CRSZ-00/01 _programming_ interface, that is actually used for programming devices. Working RS232 packet for setting a dimmer actuator to a desired level has been implemented for this device.
+
+All the code is GPL licensed.
