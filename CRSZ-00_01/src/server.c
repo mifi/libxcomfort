@@ -71,8 +71,6 @@ void get_server_data_loop(int (*on_data)(const char *, int, int)) {
 				reaccept = 1;
 				continue;
 			}
-
-			usleep(10000);
 		}
 	}
 

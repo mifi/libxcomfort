@@ -77,3 +77,8 @@ TX: 5A171B500013168207008000000000BC7D3F0000C450A5
 TX: 5A171B500013178207008000000000BC7D3F00002E2EA5
 TX: 5A171B5000131A8207008000000000BC7D3F00001E4CA5
 TX: 5A171B5000131C8207008000000000BC7D3F00007342A5
+
+
+After some time has passed,
+the dongle will answer 5a06020a00a5 on all dim commands, (dim commands do work, but not if the are too closely written in time)
+maybe it needs some re-init

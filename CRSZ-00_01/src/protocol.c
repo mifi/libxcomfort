@@ -184,8 +184,10 @@ int cmd_dim(int serialport, const char *data, int length) {
 
 	write(serialport, buf, sizeof(buf)-1);
 	read_ignore_response(serialport);
-	
+
 	sequence++;
+	
+	usleep(30000);
 	
 	return 0;
 }
