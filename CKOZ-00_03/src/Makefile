@@ -1,7 +1,7 @@
 CFLAGS = -Wall -g
 LIBS = -lusb-1.0
 
-default: testclient
+default: testclient xcomfortd
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -9,6 +9,8 @@ default: testclient
 testclient: testclient.o libxcomfort.o
 	$(CC) $(LDFLAGS) $^ $(LIBS) -o $@
 
-clean:
-	rm -rf testclient *.o
+xcomfortd: xcomfortd.o libxcomfort.o
+	$(CC) $(LDFLAGS) $^ $(LIBS) -lmicrohttpd -o $@
 
+clean:
+	rm -rf testclient xcomfortd *.o
