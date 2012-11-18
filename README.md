@@ -24,4 +24,5 @@ Concepts
 * Level: Goes from 0-100
 
 Tips
-* When programming the interface using CRSZ-00/01, use standard programming for each button, but set the dim range to 0%-100% so that you can dim the whole range.
+* When programming the interface using CRSZ-00/01, use standard programming for each button, but set the dim range to 0%-100% so that you can dim through the whole range using commands.
+* If you want to control multiple actuators from the same command, link multiple actuators to the USB interface with the same datapoint number. For instance, if you want to dim all actuators in your apartment using one command, you draw one line in MRF from each actuator to the interface and set the same datapoint number for all connections.
