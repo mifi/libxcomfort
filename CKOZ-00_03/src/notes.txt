@@ -1,0 +1,50 @@
+#region Dimmer
+    public static byte[] BuildDimSetCommand(byte datapoint, byte value)
+    {
+        return new byte[] { 0x00, 0x09, 0xb1, datapoint, 0x0d, 40, value, 0x00, 0x00, 0x00 };
+    }
+
+    public static byte[] BuildDimOnCommand(byte datapoint)
+    {
+        return new byte[] { 0x00, 0x09, 0xb1, datapoint, 0x0a, 0x01, 0x00, 0x00, 0x00, 0x00 };
+    }
+
+    public static byte[] BuildDimOffCommand(byte datapoint)
+    {
+        return new byte[] { 0x00, 0x09, 0xb1, datapoint, 0x0a, 0x00, 0x00, 0x00, 0x00, 0x00 };
+    }
+
+    #endregion
+
+    #region Switch
+
+    public static byte[] BuildSwitchOffCommand(byte datapoint)
+    {
+        return new byte[] { 0x00, 0x09, 0xb1, datapoint, 0x0a, 0x00, 0x00, 0x00, 0x00, 0x00 };
+    }
+
+    public static byte[] BuildSwitchOnCommand(byte datapoint)
+    {
+        return new byte[] { 0x00, 0x09, 0xb1, datapoint, 0x0a, 0x01, 0x00, 0x00, 0x00, 0x00 };
+    }
+
+    #endregion
+
+    #region Shutter
+
+    public static byte[] BuildShutterDownCommand(byte datapoint)
+    {
+        return new byte[] { 0x00, 0x09, 0xb1, datapoint, 0x0e, 0x00, 0x00, 0x00, 0x00, 0x00 };
+    }
+
+    public static byte[] BuildShutterUpCommand(byte datapoint)
+    {
+        return new byte[] { 0x00, 0x09, 0xb1, datapoint, 0x0e, 0x01, 0x00, 0x00, 0x00, 0x00 };
+    }
+
+    public static byte[] BuildShutterStopCommand(byte datapoint)
+    {
+        return new byte[] { 0x00, 0x09, 0xb1, datapoint, 0x0e, 0x02, 0x00, 0x00, 0x00, 0x00 };
+    }
+
+    #endregion
