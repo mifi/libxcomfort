@@ -12,5 +12,8 @@ testclient: testclient.o libxcomfort.o
 xcomfortd: xcomfortd.o libxcomfort.o
 	$(CC) $(LDFLAGS) $^ $(LIBS) -lmicrohttpd -o $@
 
+mqtt_xcomfort: mqtt_xcomfort.o libxcomfort.o
+	$(CC) $(LDFLAGS) $^ $(LIBS) -lpaho-mqtt3cs -ljansson -o $@
+
 clean:
-	rm -rf testclient xcomfortd *.o
+	rm -rf testclient xcomfortd mqtt_xcomfort *.o
