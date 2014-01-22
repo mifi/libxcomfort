@@ -25,7 +25,6 @@ int main(int argc, const char **argv) {
 
 	MQTTClient client;
 	char *clientId = "xcomfort";
-	//char *connString = "tcp://vps.mifi.no:1883";
 	char *connString = (char *)argv[1];
 
 	MQTTClient_connectOptions conn_opts = MQTTClient_connectOptions_initializer;
