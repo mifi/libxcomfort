@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 #include <MQTTClient.h>
 #include <string.h>
@@ -17,13 +18,21 @@ int main(int argc, const char **argv) {
 		exit(EXIT_FAILURE);
 	}
 
+	if (argc != 4) {
+		fprintf(stderr, "Usage %s [MQTT conn string] [MQTT user] [MQTT passwd]\n", argv[0]);
+		exit(EXIT_FAILURE);
+	}
+
 	MQTTClient client;
 	char *clientId = "xcomfort";
-	char *connString = "tcp://vps.mifi.no:1883";
+	//char *connString = "tcp://vps.mifi.no:1883";
+	char *connString = (char *)argv[1];
 
 	MQTTClient_connectOptions conn_opts = MQTTClient_connectOptions_initializer;
 	conn_opts.keepAliveInterval = 20;
 	conn_opts.cleansession = 1;
+	conn_opts.username = (char *)argv[2];
+	conn_opts.password = (char *)argv[3];
 
 	if (MQTTClient_create(&client, connString, clientId, MQTTCLIENT_PERSISTENCE_NONE, NULL) != MQTTCLIENT_SUCCESS) {
 		perror("MQTTClient_create");
@@ -61,16 +70,36 @@ int main(int argc, const char **argv) {
 
 			fprintf(stderr, "%.*s\n", message->payloadlen, ((char *)message->payload));
 
-			if (strcmp(topicName, "xcomfort/setDimLevel") == 0) {
+			if (strcmp(topicName, "xcomfort/dim/level/set") == 0) {
 				int datapoint = json_integer_value(json_object_get(root, "datapoint"));
 				int level = json_integer_value(json_object_get(root, "level"));
 
 				fprintf(stderr, "%d %d\n", datapoint, level);
 				lxc_set_dim_level(lxc_dev, datapoint, level);
 			}
-			else if (strcmp(topicName, "xcomfort/getDimLevel") == 0) {
-				/*dim_level = lxc_get_dim_level(lxc_dev, (uint8_t)atoi(datapoint));
-				//asprintf(&dim_level_str, "%d", dim_level);*/
+			else if (strcmp(topicName, "xcomfort/dim/down") == 0) {
+				int datapoint = json_integer_value(json_object_get(root, "datapoint"));
+
+				fprintf(stderr, "%d down\n", datapoint);
+				lxc_dim_gradual_start(lxc_dev, datapoint, 0);
+			}
+			else if (strcmp(topicName, "xcomfort/dim/up") == 0) {
+				int datapoint = json_integer_value(json_object_get(root, "datapoint"));
+
+				fprintf(stderr, "%d up\n", datapoint);
+				lxc_dim_gradual_start(lxc_dev, datapoint, 1);
+			}
+			else if (strcmp(topicName, "xcomfort/dim/stop") == 0) {
+				int datapoint = json_integer_value(json_object_get(root, "datapoint"));
+
+				fprintf(stderr, "%d stop\n", datapoint);
+				lxc_dim_gradual_stop(lxc_dev, datapoint);
+			}
+			else if (strcmp(topicName, "xcomfort/dim/level/get") == 0) {
+				int datapoint = json_integer_value(json_object_get(root, "datapoint"));
+
+				int dim_level = lxc_get_dim_level(lxc_dev, datapoint);
+				fprintf(stderr, "TODO: dim level: %d\n", dim_level);
 			}
 			MQTTClient_free(topicName);
 			MQTTClient_freeMessage(&message);
@@ -78,6 +107,7 @@ int main(int argc, const char **argv) {
 		}
 		else {
 			fprintf(stderr, "response: %d\n", response);
+			sleep(1);
 		}
 	}
 
