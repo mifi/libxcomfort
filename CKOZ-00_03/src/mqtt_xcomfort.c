@@ -106,7 +106,8 @@ int main(int argc, const char **argv) {
 		}
 		else {
 			fprintf(stderr, "response: %d\n", response);
-			sleep(1);
+			//sleep(1);
+			break;
 		}
 	}
 
