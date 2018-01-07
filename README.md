@@ -8,9 +8,7 @@ It can currently be used for:
 * Turning actuators/dimmers hard on/off.
 * Some other commands like reporting temperatures/measurements have been partially reverse engineered but not implemented
 
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/a3DabSrJLUgh3DWQzN9s8KRM/mifi/libxcomfort'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/a3DabSrJLUgh3DWQzN9s8KRM/mifi/libxcomfort.svg' />
-</a>
+
 
 The main library code is located under "CKOZ-00_03" and can be used to control the CKOZ/00/03 communication interface. This interface is used for integrating Moeller systems with for instance a computer program.
 Note that the devices to control need to be paired to the comm interface using the _programming_ interface and the MRF program from Moeller.
